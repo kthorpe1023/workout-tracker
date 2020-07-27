@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 const routes = require("./routes/route.js")(app);
+const apiRoutes = require("./routes/api-routes.js")(app);
 
 app.use(logger("dev"));
 
@@ -16,10 +17,14 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/custommethods", { 
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/workout";
+const options = {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+  useCreateIndex: true,
+  useFindAndModify: false,
+};
+
+mongoose.connect(MONGODB_URI,options)
 
 app.listen(PORT, () => {
     console.log(`App running on port ${PORT}!`);
