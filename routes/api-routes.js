@@ -24,6 +24,7 @@ module.exports = function(app) {
             }
         })
     });
+    
     app.put("/api/workouts/:id", function({body, params}, res) {
         db.Workout.updateOne({_id: params.id}, {$push: {exercises: body}})
             .then((dbWorkout) => {
@@ -34,6 +35,18 @@ module.exports = function(app) {
                     console.log("error with updateOne")
                 }
             });
+    });
+
+    app.get("/api/workouts/range", (req,res) => {
+        db.Workout.find({})
+            .then((range) => {
+                res.json(range)
+            })
+            .catch((err) => {
+                if(err){
+                    console.log("get range not working")
+                }
+            })
     })
 
 }

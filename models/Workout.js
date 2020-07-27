@@ -7,10 +7,11 @@ const WorkoutSchema = new Schema({
     type: Date,
     default: Date.now()
   },
-  exercises:
-    [{
+  exercises:[
+    {
     type: {
       type: String,
+      required: true,
     },
     name: {
       type: String,
@@ -18,7 +19,7 @@ const WorkoutSchema = new Schema({
     },
     duration:{
       type: Number,
-      validate: [({number}) => number >= 0, "Duration must be greater than 0"]
+      required: true,
     },
         weight:{
           type: Number,
@@ -36,14 +37,24 @@ const WorkoutSchema = new Schema({
           type: Number,
           validate: [({number}) => number >= 0, "Distance must be greater than 0"]
         },
+      
     },
-    ],
+  ],
+},
+//so data is calculate only when requested
+    {
+      toJSON: {
+        viruals: true
+      }
     });
 
-// WorkoutSchema.methods.numExercises = function(){
-//     this.numExercises = this.Workout.exercises;
-//     return this.numExercises;
-// }
+    //calculate total duration of workout
+    WorkoutSchema.virtual("totalDuration").get(function () {
+      return this.exercises.reduce((total, exercise) => {
+        return total + exercise.duration;
+      }, 0);
+    });
+
 
 const Workout = mongoose.model("Workout", WorkoutSchema);
 
