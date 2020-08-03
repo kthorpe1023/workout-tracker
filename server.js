@@ -3,12 +3,11 @@ const logger = require("morgan");
 const mongoose = require("mongoose");
 const db = require("./models");
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3050;
 
 const app = express();
 
-const routes = require("./routes/route.js")(app);
-const apiRoutes = require("./routes/api-routes.js")(app);
+
 
 app.use(logger("dev"));
 
@@ -25,6 +24,9 @@ const options = {
 };
 
 mongoose.connect(MONGODB_URI,options)
+
+const routes = require("./routes/route.js")(app);
+const apiRoutes = require("./routes/api-routes.js")(app);
 
 app.listen(PORT, () => {
     console.log(`App running on port ${PORT}!`);

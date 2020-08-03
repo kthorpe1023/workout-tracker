@@ -3,9 +3,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const WorkoutSchema = new Schema({
-  date: {
+  day: {
     type: Date,
-    default: Date.now()
+    default: Date.now
   },
   exercises:[
     {
@@ -21,27 +21,15 @@ const WorkoutSchema = new Schema({
       type: Number,
       required: true,
     },
-        weight:{
-          type: Number,
-          validate: [({number}) => number >= 0, "Weight must be greater than 0"]
-        },
-        sets: {
-          type: Number,
-          validate: [({number}) => number >= 0, "Sets performed must be greater than 0"]
-        },
-        reps: {
-          type: Number,
-          validate: [({number}) => number >= 0, "Reps performed must be greater than 0"]
-        },
-        distance: {
-          type: Number,
-          validate: [({number}) => number >= 0, "Distance must be greater than 0"]
-        },
+        weight:Number,
+        sets: Number,
+        reps: Number,
+        distance: Number,
       
     },
   ],
 },
-//so data is calculate only when requested
+//so data is calculated only when requested
     {
       toJSON: {
         viruals: true

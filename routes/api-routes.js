@@ -18,16 +18,19 @@ module.exports = function(app) {
         db.Workout.create(req.body)
         .then((dbWorkout) => {
             res.json(dbWorkout)
+            console.log("api-routes req.body ", req.body)
         }).catch((err) => {
             if(err){
-                console.log("post to workouts err")
+                console.log("post to workouts err");
+                console.log(req.body)
             }
         })
     });
-    
+
     app.put("/api/workouts/:id", function({body, params}, res) {
         db.Workout.updateOne({_id: params.id}, {$push: {exercises: body}})
             .then((dbWorkout) => {
+                console.log("put api-routes ", {body})
                 res.json(dbWorkout);
             })
             .catch((err) => {
@@ -44,7 +47,7 @@ module.exports = function(app) {
             })
             .catch((err) => {
                 if(err){
-                    console.log("get range not working")
+                    console.log("get range not working\n", err)
                 }
             })
     })
