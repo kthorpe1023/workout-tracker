@@ -19,29 +19,42 @@ const WorkoutSchema = new Schema({
     },
     duration:{
       type: Number,
-      required: true,
+      required: "Must be a number",
     },
-        weight:Number,
-        sets: Number,
-        reps: Number,
-        distance: Number,
+    weight: {
+      type: Number,
+      required: "Must be a number",
+    },
+    sets: {
+      type: Number,
+      required: "Must be a number",
+    },
+    reps: {
+      type: Number,
+      required: "Must be a number",
+    },
+    distance: {
+      type: Number,
+      required: "Must be a number",
+    },
       
     },
   ],
-},
+});
 //so data is calculated only when requested
-    {
-      toJSON: {
-        viruals: true
-      }
-    });
+    // {
+    //   toJSON: {
+    //     viruals: true
+    //   }
+    // });
 
     //calculate total duration of workout
-    WorkoutSchema.virtual("totalDuration").get(function () {
-      return this.exercises.reduce((total, exercise) => {
-        return total + exercise.duration;
-      }, 0);
-    });
+    // WorkoutSchema.virtual("totalDuration").get( () => {
+    //   return this.exercises.reduce((total, exercise) => {
+    //     console.log("total ", total)
+    //     return total += exercise.duration;
+    //   }, 0);
+    // });
 
 
 const Workout = mongoose.model("Workout", WorkoutSchema);

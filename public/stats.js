@@ -1,5 +1,8 @@
 // get all workout data from back-end
 
+const { $where } = fetch("/api/workouts");
+const canvas = document.querySelector("#canvas")
+
 fetch("/api/workouts/range")
   .then(response => {
     return response.json();
@@ -91,6 +94,7 @@ function populateChart(data) {
       }
     }
   });
+  
 
   let barChart = new Chart(bar, {
     type: "bar",
