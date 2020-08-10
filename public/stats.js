@@ -5,6 +5,7 @@ const canvas = document.querySelector("#canvas")
 
 fetch("/api/workouts/range")
   .then(response => {
+    console.log("fetch range works")
     return response.json();
   })
   .then(data => {
@@ -194,8 +195,9 @@ function duration(data) {
   let durations = [];
 
   data.forEach(workout => {
-    workout.exercises.forEach(exercise => {
-      durations.push(exercise.duration);
+    workout.exercises.forEach(workout => {
+      console.log(workout)
+      durations.push(workout.duration);
     });
   });
 
